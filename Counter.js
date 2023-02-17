@@ -3,18 +3,19 @@ const hoursEl = document.getElementById("hours");
 const minsEl = document.getElementById("mins");
 const secondsEl = document.getElementById("seconds");
 
-let today = new Date();
 
 function countdown() {
-    const newYearsDate = new Date(today.getFullYear()+1, 1, 1);
-    const currentDate = new Date();
 
-    const totalSeconds = (newYearsDate - currentDate) / 1000;
+    const now = new Date();
 
-    const days = Math.floor(totalSeconds / 3600 / 24);
-    const hours = Math.floor(totalSeconds / 3600) % 24;
-    const mins = Math.floor(totalSeconds / 60) % 60;
-    const seconds = Math.floor(totalSeconds) % 60;
+    // Calculate time difference in seconds
+    const timeDiff = (new Date(`December 31, ${now.getFullYear()} 23:59:59`).getTime() - now.getTime()) / 1000;
+
+    // Calculate days, hours, minutes, and seconds
+    const days = Math.floor(timeDiff / 3600 / 24);
+    const hours = Math.floor((timeDiff % 86400) / 3600);
+    const mins = Math.floor((timeDiff % 3600) / 60);
+    const seconds = Math.floor(timeDiff % 60);
 
     daysEl.innerHTML = days;
     hoursEl.innerHTML = formatTime(hours);
